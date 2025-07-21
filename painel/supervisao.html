@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CGR 9 - São José do Rio Preto</title>
+  <link rel="stylesheet" href="supervisao.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <div class="header-sticky">
+        <header>
+            <div class="header">
+                <i class="fa-solid fa-bars" onclick="ListOn();"></i><h2>SUPERVISÃO LBR ENGENHARIA</h2>
+            </div>
+            <div class="header-list">
+                <ul>
+                    <li onclick="ListOn();">
+                        <h2><i class="fa-solid fa-house"></i>Home</h2>
+                    </li>
+                    <li onclick="ListOn();">
+                        <h2><i class="fa-solid fa-road"></i>Rodovia</h2>
+                    </li>
+                    <li onclick="ListOn();">
+                        <h2><i class="fa-solid fa-video"></i>Tutorial</h2>
+                    </li>
+                    <li onclick="ListOn();">
+                        <h2><i class="fa-solid fa-wrench"></i>Engines</h2>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    </div>
+    <div class="page-body">
+        <div class="quadrado1" onclick="ativarMenu();">
+            <h2><i class="fa-solid fa-house"></i>Home</h2>
+            <span>Esse é o menu inicial.</span>
+            <br>
+            <span>Aperte na barra&nbsp;&nbsp;<i class="fa-solid fa-bars"></i>do menu</span>
+            <span>e selecione "Ínicio" para</span>
+            <span>voltar ao menu inicial.</span>
+            <br>
+            <span>Ao clicar nesses itens</span>
+            <span>da página inicial, o menu</span>
+            <span>será ativado automaticamente.</span>
+        </div>
+        <div class="quadrado2" onclick="ativarMenu();">
+            <h2><i class="fa-solid fa-road"></i>Rodovias</h2>
+            <span>Acesse todas as rodovias.</span>
+            <br>
+            <span>Aperte na barra&nbsp;&nbsp;<i class="fa-solid fa-bars"></i>do menu</span>
+            <span>e selecione "Rodovias" para</span>
+            <span>analisar todas as rodovias</span>
+            <span>separadas por residência</span>
+            <br>
+            <span>Essa opção permite analisar</span>
+            <span>as Rodovias em Conserva.</span>
+        </div>
+        <div class="quadrado3" onclick="ativarMenu();">
+            <h2><i class="fa-solid fa-video"></i>Tutoriais</h2>
+            <span>Automatize processos!</span>
+            <br>
+            <span>Aperte na barra&nbsp;&nbsp;<i class="fa-solid fa-bars"></i>do menu</span>
+            <span>e selecione "Tutoriais" para</span>
+            <span>aprender a baixar e</span>
+            <span>usar as Engines.</span>
+            <br>
+            <span>Aprenda a usar todas</span>
+            <span>as Engines gratuitamente.</span>
+        </div>
+        <div class="quadrado4" onclick="ativarMenu();">
+            <h2><i class="fa-solid fa-wrench"></i>Engines</h2>
+            <span>Baixe todas as Engines.</span>
+            <br>
+            <span>Aperte na barra&nbsp;&nbsp;<i class="fa-solid fa-bars"></i>do menu</span>
+            <span>e selecione "Engines" para</span>
+            <span>baixar todos os arquivos.</span>
+            <br>
+            <span>Essa parte do site</span>
+            <span>é um complemento</span>
+            <span>da parte "Tutoriais"</span>
+        </div>
+    </div>
+        <div class="supervisao-lbr">
+            <h2>Dúvidas? Entre em contato:</h2>
+            <div class="form-duv">
+            <form action="https://formsubmit.co/gustavopitrowsky@gmail.com" method="POST">
+            <input type="text" name="Nome" required placeholder="Digite seu nome">
+            <input type="email" name="E-mail ou telefone" required placeholder="Digite seu e-mail ou telefone">
+            <textarea name="Dúvida" required placeholder="Digite sua dúvida..."></textarea>
+            <button type="submit">Enviar</button>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="box">
+            <input type="hidden" name="_next" value="http://127.0.0.1:5500/">
+            <input type="hidden" name="_autoresponse" value="Recebemos sua dúvida! Em breve entraremos em contato.">
+                </form>
+            </div>
+        </div>
+        <script src="supervisao.js"></script>
+</body>
+</html>

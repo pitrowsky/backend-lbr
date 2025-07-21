@@ -1,0 +1,327 @@
+body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100vw;
+        height: auto;
+        background: 
+        linear-gradient(to top right, rgb(215, 225, 255), rgb(102, 143, 255)),
+        linear-gradient(to bottom right, rgb(102, 143, 255), rgb(102, 143, 255));
+        background-blend-mode: screen;
+        position: relative;
+        z-index: -5;
+    }
+    .header-sticky {
+        margin: 0;
+        top: 0;
+        padding: 0;
+        position: -webkit-sticky;
+        position: sticky;
+        width: 100%;
+        height: 4vw;
+        min-height: 45px;
+    }
+    header {
+        margin: 0;
+        top: 0;
+        padding: 0;
+        width: 100%;
+        height: 4vw;
+        min-height: 45px;
+        background-color: darkblue;
+        box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.75);
+        user-select: none;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 4vw;
+        min-height: 45px;
+        position: relative;
+        z-index: 100;
+    }
+    .header i {
+        margin-left: 10px;
+        font-size: 25px;
+        width: 25px;
+        color: rgb(77, 77, 214);
+        text-shadow: 0 0 5px black, 0 0 20px black;
+        transition: color 0.7s ease, text-shadow 0.7s ease;
+        cursor: pointer;
+    }
+    .header i:hover {
+        color: rgb(120, 120, 252);
+        text-shadow: 0 0 20px rgb(120, 120, 252);
+    }
+    .header h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        height: 4vw;
+        min-height: 45px;
+        font-weight: bold;
+        width: 100%;
+        color: rgb(77, 77, 214);
+        text-shadow: 0 0 5px black, 0 0 20px black;
+    }
+
+    .header-list, .header-list ul {
+        margin: 0;
+        padding: 0;
+    }
+    .header-list {
+        position: relative;
+        z-index: -1;
+        transition: transform 0.5s ease-in-out;
+        transform: translateY(-100%);
+        width: 100%;
+        max-width: 450px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+    .header-list.on {
+        transform: translateY(0);
+    }
+    .header-list li {
+        list-style: none;
+        background-color: darkblue;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 2.5vw;
+        min-height: 40px;
+        color: rgb(77, 77, 214);
+        text-shadow: 0 0 5px black, 0 0 20px black;
+        transition: color 0.7s ease, text-shadow 0.7s ease, background-color 0.7s ease;
+    }
+    .header-list li:hover {
+        color: rgb(120, 120, 252);
+        background-color: rgb(26, 26, 196);
+        text-shadow: 0 0 25px rgb(120, 120, 252), 0 0 20px black, 0 0 5px black;
+    }
+    .header-list i {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .fade-in {
+    animation: aparecer 0.3s ease forwards;
+    }
+    .fade-out {
+    animation: desaparecer 0.3s ease forwards;
+    }
+    
+    .page-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
+        padding: 0;
+        user-select: none;
+        position: relative;
+        cursor: pointer;
+        z-index: -2;
+    }
+    .quadrado1, .quadrado2, .quadrado3, .quadrado4 {
+        width: 250px;
+        height: 250px;
+        color: rgb(77, 77, 214);
+        margin: 15px 15px;
+        background-color: rgba(0, 0, 139, 0.1); 
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
+        box-shadow: 4px 4px 20px black;
+        border: 2px solid darkblue;
+        transform: translateY(-230%);
+        transition: scale 0.5s ease, background-color 0.5s ease;
+    }
+    .quadrado1:hover, .quadrado2:hover, .quadrado3:hover, .quadrado4:hover {
+        scale: 1.05;
+        background-color: rgba(0, 0, 139, 0.2);
+    }
+    .quadrado1 {
+        animation: deslizar 1s ease forwards;
+    }
+    .quadrado2 {
+        animation: deslizar 1s ease forwards;
+        animation-delay: 0.2s;
+    }
+    .quadrado3 {
+        animation: deslizar 1s ease forwards;
+        animation-delay: 0.4s;
+    }
+    .quadrado4 {
+        animation: deslizar 1s ease forwards;
+        animation-delay: 0.6s;
+    }
+    .quadrado1 h2, .quadrado2 h2, .quadrado3 h2, .quadrado4 h2 {
+        font-family: 'Bebas Neue', sans-serif;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .quadrado1 span, .quadrado2 span, .quadrado3 span, .quadrado4 span {
+        font-family: 'Courier New', Courier, monospace;
+        letter-spacing: -2px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .quadrado1 i, .quadrado2 i, .quadrado3 i, .quadrado4 i {
+        margin-right: 10px;
+    }
+    .supervisao-lbr {
+        user-select: none;
+    }
+    .supervisao-lbr h2, .form-duv form {
+        margin-top: 15px;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+    .supervisao-lbr h2 {
+        margin: 0;
+        color: rgb(77, 77, 214);
+        opacity: 0;
+        animation: surgir 0.5s ease-out 0.8s forwards;
+    }
+    @keyframes surgir {
+    to {
+        opacity: 1;
+        text-shadow: 1px 1px 2px gray;
+    }
+  }
+
+    .form-duv input {
+        font-family: 'Courier New', Courier, monospace;
+        margin-bottom: 10px;
+        padding-left: 10px;
+        border: 1px solid darkblue;
+        outline: none;
+        width: 250px;
+        height: 25px;
+        background-color: rgba(0, 0, 139, 0.1);
+        transition: background-color 0.5s ease, scale 0.5s ease;
+    }
+    .form-duv input:nth-child(1) {
+        animation: aparecerInput 0.5s ease 1s both;
+    }
+    .form-duv input:nth-child(2) {
+        animation: aparecerInput 0.5s ease 1.2s both;
+    }
+    @keyframes aparecerInput {
+        from {
+            opacity: 0;
+            transform: scale(0.4);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+        }
+
+    
+    .form-duv input:hover {
+        scale: 1.05;
+        background-color: rgba(0, 0, 139, 0.2);
+    }
+    .form-duv textarea:hover {
+        scale: 1.05;
+        background-color: rgba(0, 0, 139, 0.2);
+    }
+    .form-duv input::placeholder, .form-duv textarea::placeholder {
+        color: darkblue;
+    }
+    .form-duv textarea {
+        font-family: 'Courier New', Courier, monospace;
+        padding-top: 10px;
+        padding-left: 10px;
+        margin: 0 0 15px 0;
+        width: 250px;
+        height: 80px;
+        resize: none;
+        border: 1px solid darkblue;
+        outline: none;
+        background-color: rgba(0, 0, 139, 0.1);
+        transition: background-color 0.5s ease, scale 0.5s ease;
+        animation: aparecerInput 0.5s ease 1.4s both;
+    }
+    .form-duv textarea:focus, .form-duv input:focus {
+        border: 1px solid blue;
+    }
+    .form-duv button {
+        cursor: pointer;
+        border: none;
+        outline: 1px solid darkblue;
+        width: 150px;
+        height: 30px;
+        color: darkblue;
+        font-weight: bold;
+        background-color: rgba(0, 0, 139, 0.1);
+        transition: background-color 0.5s ease, scale 0.5s ease;
+        animation: aparecerInput 0.5s ease 1.6s both;
+    }
+    .form-duv button:hover {
+        scale: 1.05;
+        background-color: rgba(0, 0, 139, 0.2);
+    }
+    
+    @media (min-width: 1401px) {
+        .header i {
+            margin-left: 20px; 
+        }
+    }
+    @media (min-width: 568px) {
+        body {
+            height: 100vh;
+        }
+    }
+
+    @keyframes deslizar {
+        from {
+            transform: translateY(-230%);
+        } to {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes aparecer {
+        0% {
+            opacity: 0;
+            transform: scale(0.4);
+        } 20% {
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes desaparecer {
+        0% {
+            transform: scale(1);
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0.4);
+        }
+    }
