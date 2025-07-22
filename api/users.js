@@ -1,60 +1,70 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// Evita múltiplas conexões
-let conn = null;
+const app = express();
 
-// Define o Schema do usuário
+app.use(cors({
+  origin: 'https://pitrowsky.github.io',
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true,
+}));
+
+app.options('*', cors());
+
+// Middleware para JSON
+app.use(express.json());
+
+// Conexão com o MongoDB Atlas
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('🟢 MongoDB conectado'))
+  .catch((err) => console.error('🔴 Erro na conexão MongoDB:', err));
+
+// Esquema de usuário
 const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
 });
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
-// Função Serverless (executada a cada requisição)
-module.exports = async (req, res) => {
-  // Permitir apenas requisições do domínio https://pitrowsky.github.io
-  const allowedOrigin = 'https://pitrowsky.github.io';
-
-  // Adicionando cabeçalhos CORS
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  // Se for uma requisição OPTIONS (preflight), apenas retorna 200
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();  // Responde a preflight requests
-  }
-
-  // Responde se o método não for POST
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Método não permitido' });
-  }
-
-  // Se não houver conexão, conecta ao MongoDB
-  if (!conn) {
-    conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-  }
-
-  const { username, password } = req.body;
+// Rota de login
+app.post('/users', async (req, res) => {
+  const { user, password } = req.body;
 
   try {
-    const found = await User.findOne({ username });
-    if (!found) {
-      return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
-    }
+    const found = await User.findOne({ username: user });
+    if (!found) return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
 
     const valid = await bcrypt.compare(password, found.password);
-    if (!valid) {
-      return res.status(401).json({ success: false, message: 'Senha incorreta' });
-    }
+    if (!valid) return res.status(401).json({ success: false, message: 'Senha incorreta' });
 
-    res.status(200).json({ success: true });
-  } catch (err) {
-    console.error(err);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, message: 'Erro interno' });
   }
-};
+});
+
+// Protege o acesso aos arquivos da pasta painel
+app.get('/painel/:file', async (req, res) => {
+  const referer = req.get('referer');
+  if (!referer || !referer.startsWith('https://pitrowsky.github.io/supervisao-lbr/')) {
+    return res.status(403).send('Acesso negado');
+  }
+
+  const fileName = req.params.file;
+  const filePath = path.join(__dirname, 'painel', fileName);
+  res.sendFile(filePath);
+});
+
+// Porta
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(🚀 Servidor rodando na porta ${PORT});
+});
