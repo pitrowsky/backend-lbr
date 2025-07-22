@@ -7,7 +7,12 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://pitrowsky.github.io',
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true,
+}));
 
 app.options('*', cors());
 
