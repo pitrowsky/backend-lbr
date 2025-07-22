@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 // Rota de login
-app.post('/users', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { user, password } = req.body;
 
   try {
