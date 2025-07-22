@@ -59,7 +59,7 @@ app.get('/painel/:file', async (req, res) => {
   }
 
   const fileName = req.params.file;
-  const filePath = path.join(__dirname, 'painel', fileName);
+  const filePath = path.join(__dirname, '..', 'painel', fileName);
   res.sendFile(filePath);
 });
 
