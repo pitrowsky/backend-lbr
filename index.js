@@ -1,14 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const app = express();
 
 app.use(cors({
-  origin: 'https://pitrowsky.github.io',  // Permitir todo o domínio github.io OU
+  origin: 'https://pitrowsky.github.io/supervisao-lbr',  // Permitir todo o domínio github.io OU
   // origin: 'https://pitrowsky.github.io/supervisao-lbr', // Mais restrito, pode tentar
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
@@ -21,7 +21,7 @@ app.options('*', cors());
 app.use(express.json());
 
 // Conexão com o MongoDB Atlas
-mongoose.connect(process.env.MONG_URI, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log('🟢 MongoDB conectado'))
