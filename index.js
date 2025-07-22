@@ -8,11 +8,14 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://pitrowsky.github.io/supervisao-lbr/',  // Permitir apenas este domínio
-  methods: 'GET,POST,PUT,DELETE',  // Permite métodos específicos, ajuste conforme necessário
-  allowedHeaders: 'Content-Type,Authorization',  // Permite os cabeçalhos necessários
-  credentials: true,  // Permite o envio de cookies se necessário
+  origin: 'https://pitrowsky.github.io',  // Permitir todo o domínio github.io OU
+  // origin: 'https://pitrowsky.github.io/supervisao-lbr', // Mais restrito, pode tentar
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true,
 }));
+
+app.options('*', cors());
 
 // Middleware para JSON
 app.use(express.json());
