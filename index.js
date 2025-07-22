@@ -1,24 +1,27 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const app = express();
 
 app.use(cors({
-  origin: 'https://pitrowsky.github.io/supervisao-lbr',  // Permitir apenas este domínio
-  methods: 'GET,POST,PUT,DELETE',  // Permite métodos específicos, ajuste conforme necessário
-  allowedHeaders: 'Content-Type,Authorization',  // Permite os cabeçalhos necessários
-  credentials: true,  // Permite o envio de cookies se necessário
+  origin: 'https://pitrowsky.github.io/supervisao-lbr',  // Permitir todo o domínio github.io OU
+  // origin: 'https://pitrowsky.github.io/supervisao-lbr', // Mais restrito, pode tentar
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true,
 }));
+
+app.options('*', cors());
 
 // Middleware para JSON
 app.use(express.json());
 
 // Conexão com o MongoDB Atlas
-mongoose.connect(process.env.MONG_URI, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log('🟢 MongoDB conectado'))
@@ -52,7 +55,7 @@ app.post('/users', async (req, res) => {
 // Protege o acesso aos arquivos da pasta painel
 app.get('/painel/:file', async (req, res) => {
   const referer = req.get('referer');
-  if (!referer || !referer.startsWith('https://pitrowsky.github.io/')) {
+  if (!referer || !referer.startsWith('https://pitrowsky.github.io/supervisao-lbr/')) {
     return res.status(403).send('Acesso negado');
   }
 
