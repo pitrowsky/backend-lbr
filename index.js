@@ -7,13 +7,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://pitrowsky.github.io/supervisao-lbr',  // Permitir todo o domínio github.io OU
-  // origin: 'https://pitrowsky.github.io/supervisao-lbr', // Mais restrito, pode tentar
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
-  credentials: true,
-}));
+app.use(cors());
 
 app.options('*', cors());
 
