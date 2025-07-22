@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://pitrowsky.github.io',  // Permitir apenas este domínio
+  origin: 'https://pitrowsky.github.io/supervisao-lbr/',  // Permitir apenas este domínio
   methods: 'GET,POST,PUT,DELETE',  // Permite métodos específicos, ajuste conforme necessário
   allowedHeaders: 'Content-Type,Authorization',  // Permite os cabeçalhos necessários
   credentials: true,  // Permite o envio de cookies se necessário
@@ -52,7 +52,7 @@ app.post('/users', async (req, res) => {
 // Protege o acesso aos arquivos da pasta painel
 app.get('/painel/:file', async (req, res) => {
   const referer = req.get('referer');
-  if (!referer || !referer.startsWith('https://pitrowsky.github.io/')) {
+  if (!referer || !referer.startsWith('https://pitrowsky.github.io/supervisao-lbr/')) {
     return res.status(403).send('Acesso negado');
   }
 
