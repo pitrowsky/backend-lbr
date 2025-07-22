@@ -1,70 +1,41 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const app = express();
+let conn = null;
 
-app.use(cors({
-  origin: 'https://pitrowsky.github.io',
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
-  credentials: true,
-}));
-
-app.options('*', cors());
-
-// Middleware para JSON
-app.use(express.json());
-
-// Conexão com o MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('🟢 MongoDB conectado'))
-  .catch((err) => console.error('🔴 Erro na conexão MongoDB:', err));
-
-// Esquema de usuário
+// Schema e modelo
 const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
 });
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-// Rota de login
-app.post('/users', async (req, res) => {
-  const { user, password } = req.body;
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://pitrowsky.github.io');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  const { username, password } = req.body;
 
   try {
-    const found = await User.findOne({ username: user });
-    if (!found) return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
+    if (!conn) {
+      conn = await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+    }
 
-    const valid = await bcrypt.compare(password, found.password);
+    const user = await User.findOne({ username });
+    if (!user) return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
+
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ success: false, message: 'Senha incorreta' });
 
-    res.json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: 'Erro interno' });
+    return res.status(500).json({ success: false, message: 'Erro interno' });
   }
-});
-
-// Protege o acesso aos arquivos da pasta painel
-app.get('/painel/:file', async (req, res) => {
-  const referer = req.get('referer');
-  if (!referer || !referer.startsWith('https://pitrowsky.github.io/supervisao-lbr/')) {
-    return res.status(403).send('Acesso negado');
-  }
-
-  const fileName = req.params.file;
-  const filePath = path.join(__dirname, '..', 'painel', fileName);
-  res.sendFile(filePath);
-});
-
-// Porta
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
-});
+};

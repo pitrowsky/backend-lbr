@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "src": "/painel/(.*)",
+      "methods": ["GET"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://pitrowsky.github.io"
+      },
+      "check": true,
+      "dest": "/api/painel.js"
+    }
+  ]
+}
